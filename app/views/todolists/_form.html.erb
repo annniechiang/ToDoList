@@ -1,0 +1,54 @@
+<!-- 導覽列 -->
+<nav class="my-nav navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- <a class="navbar-brand" href="#">My To Do List</a> -->
+    </div>
+    
+  </div><!-- /.container-fluid -->
+</nav>
+
+<br />
+<div>
+  <% if @todolist.errors.present? %>
+    <div>錯誤訊息</div>
+    <ol>
+      <% @todolist.errors.each do |error, message| %>
+        <li> <%= "#{error.capitalize} #{message}" %></li>
+      <% end %>
+    </ol>
+  <% end %>
+</div>
+
+<div class="form container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+      <%= form_for @todolist do |f| %>
+        <div class="form-group">
+          <%= f.label :task, "Task Name" %>
+          <%= f.text_field :task, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :due_date, "Due Date" %>
+          <%= f.text_field :due_date, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :note, "Note" %>
+          <%= f.text_area :note, class: "form-control", rows: "4" %>
+        </div>
+
+        <br />
+        <div class="text-center"><%= f.submit %></div>
+        <br />
+        <div class="text-center"><%= link_to 'Back to index', todolists_url, class: "btn btn-success" %></div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<!-- 導覽列 -->
+<nav class="my-nav navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- <a class="navbar-brand" href="#">My To Do List</a> -->
+    </div>
+    
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+  <h1 class="text-center">My To Do List</h1>
+  <div align="right"><%= Date.today %></div>
+  <br />
+  <table class="table table-hover">
+    <tr class="active">
+      <th>#</th>
+      <th>Task</th>
+      <th>Due date</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% i=1 %>
+    <% @todolists.order("due_date DESC").each do |todolist| %>
+      <tr>
+        <td><%= i %></td>
+        <td><%= link_to todolist.task, todolist_path(todolist) %></td>
+        <td><%= todolist.due_date %></td>
+        <% if todolist.due_date > Date.today %>
+          <td><%= link_to 'Edit', edit_todolist_path(todolist), class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Delete', todolist_path(todolist), method: :delete, data:{ confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %></td>
+        <% else %>
+          <td><%= link_to 'Edit', "#", class: "btn btn-primary btn-sm", disabled: "disabled" %></td>
+          <td><%= link_to 'Delete', "#", class: "btn btn-danger btn-sm", disabled: "disabled" %></td>
+        <% end %>
+      </tr>
+      <% i+=1 %>
+    <% end %>
+  </table>
+  <br />
+  <div><%= link_to 'New Task', new_todolist_path, class: "btn btn-success" %></div>
+</div>
